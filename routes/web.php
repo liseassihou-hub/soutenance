@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\PasswordResetController;
 use Illuminate\Support\Facades\Route;
 
 // Routes principales
@@ -8,14 +10,19 @@ Route::get('/', function () {
 })->name('home');
 
 // Routes d'authentification
-Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLogin'])->name('login');
-Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login.submit');
-Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/forgot-password', [PasswordResetController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset.form');
+Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.reset');
 
 // Routes Admin (protégé par middleware auth:admin)
-Route::get('/admin/login', [App\Http\Controllers\Auth\LoginController::class, 'showLogin'])->name('admin.login');
-Route::post('/admin/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('admin.login.submit');
-Route::post('/admin/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('admin.logout');
+Route::get('/admin/login', [LoginController::class, 'showLogin'])->name('admin.login');
+Route::post('/admin/login', [LoginController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
 Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('dashboard');

@@ -57,3 +57,15 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Réinitialisation du mot de passe
+
+Le formulaire de connexion expose désormais un lien de réinitialisation de mot de passe. Le lien envoie un email via Maildev et redirige vers un formulaire de création de nouveau mot de passe.
+
+Pour démarrer Maildev en local:
+
+```bash
+npx maildev --smtp 1025 --web 1080
+```
+
+Ensuite, ouvre l'interface web sur `http://127.0.0.1:1080`.
