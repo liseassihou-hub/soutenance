@@ -235,7 +235,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 9999;
+            z-index: 10;
             text-align: center;
             color: white;
             max-width: 900px;

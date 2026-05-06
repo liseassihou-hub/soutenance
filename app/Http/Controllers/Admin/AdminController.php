@@ -29,11 +29,45 @@ class AdminController extends Controller
         $demandesApprouvees = DemandeCredit::where('statut', 'approuve')->count();
         $demandesRefusees = DemandeCredit::where('statut', 'refuse')->count();
         
+        // Données pour le graphique - 7 derniers jours
+        $dailyData = [];
+        $labels7 = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i);
+            $labels7[] = $date->format('D');
+            $dailyData[] = DemandeCredit::whereDate('date_demande', $date->format('Y-m-d'))->count();
+        }
+
+        // Données pour les 30 derniers jours (par semaine)
+        $weeklyData = [];
+        $labels30 = [];
+        for ($i = 3; $i >= 0; $i--) {
+            $startDate = now()->subWeeks($i + 1)->startOfWeek();
+            $endDate = now()->subWeeks($i + 1)->endOfWeek();
+            $labels30[] = 'Sem ' . (4 - $i);
+            $weeklyData[] = DemandeCredit::whereBetween('date_demande', [$startDate, $endDate])->count();
+        }
+
+        // Données pour les 90 derniers jours (par mois)
+        $monthlyData = [];
+        $labels90 = [];
+        for ($i = 2; $i >= 0; $i--) {
+            $date = now()->subMonths($i);
+            $labels90[] = $date->format('M');
+            $monthlyData[] = DemandeCredit::whereMonth('date_demande', $date->month)->whereYear('date_demande', $date->year)->count();
+        }
+        
         return view('admin.dashboard', compact(
             'totalDemandes',
             'demandesEnCours', 
             'demandesApprouvees', 
-            'demandesRefusees'
+            'demandesRefusees',
+            'labels7',
+            'dailyData',
+            'labels30',
+            'weeklyData',
+            'labels90',
+            'monthlyData'
         ));
     }
 

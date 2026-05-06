@@ -149,7 +149,7 @@
                         </div>
                         <div>
                             <label class="block text-base font-semibold text-gray-800 mb-2">Date de Demande</label>
-                            <p class="text-gray-900">{{ $demande->created_at->format('d/m/Y H:i') }}</p>
+                            <p class="text-gray-900">{{ $demande->date_demande->format('d/m/Y H:i') }}</p>
                         </div>
                         <div>
                             <label class="block text-base font-semibold text-gray-800 mb-2">Date de Traitement</label>

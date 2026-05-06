@@ -25,8 +25,8 @@
                 <div class="flex-1 min-w-48">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Recherche</label>
                     <input type="text" name="search" value="{{ request()->get('search') }}" 
-                           placeholder="  " 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                           placeholder="Entrez le nom à rechercher " 
+                           class="w-full px-3 py-2 border-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
                 <div class="min-w-40">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Statut</label>

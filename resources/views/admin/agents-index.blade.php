@@ -59,7 +59,7 @@
             </div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="flex items-center space-x-3 px-4 py-3 text-green-100 hover:bg-green-800 hover:text-white rounded-lg transition-colors">
+                <button type="submit" class="flex items-center space-x-3 px-4 py-3 text-green-100 bg-red-500 hover:bg-red-600 hover:text-white rounded-lg transition-colors">
                     <i class="fas fa-sign-out-alt w-5"></i>
                     <span>Déconnexion</span>
                 </button>
@@ -111,7 +111,6 @@
                                 <th class="px-6 py-3 text-left text-xs font-medium text-green-700 uppercase tracking-wider">Contact</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-green-700 uppercase tracking-wider">Sexe</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-green-700 uppercase tracking-wider">Statut</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-green-700 uppercase tracking-wider">Date</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-green-700 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
@@ -130,7 +129,7 @@
                                         </div>
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">{{ $agent->nom }} {{ $agent->prenom }}</div>
-                                            <div class="text-sm text-gray-500">ID: {{ $agent->id }}</div>
+                                           
                                         </div>
                                     </div>
                                 </td>
@@ -149,9 +148,7 @@
                                         {{ $agent->statut ?? 'activé' }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    Agent ID: {{ $agent->id }}
-                                </td>
+                                
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium" style="position: relative; z-index: 10;">
                                     <a href="{{ route('admin.agents.edit', $agent->id) }}" class="text-blue-600 hover:text-blue-900 mr-3" style="position: relative; z-index: 11;">Modifier</a>
                                     <form action="{{ route('admin.agents.toggle', $agent->id) }}" method="POST" class="inline toggle-agent-form" data-agent-id="{{ $agent->id }}" style="position: relative; z-index: 11;">
