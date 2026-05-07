@@ -31,7 +31,12 @@ jobs:
       - name: Build assets
         run: |
           if [ -f package.json ]; then
-            npm ci
+            # prefer clean install with lockfile, otherwise fall back to npm install
+            if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+              npm ci
+            else
+              npm install
+            fi
             npm run build || true
           fi
 
