@@ -69,3 +69,116 @@ npx maildev --smtp 1025 --web 1080
 ```
 
 Ensuite, ouvre l'interface web sur `http://127.0.0.1:1080`.
+
+## README réécrit — PEBCO (Guide d'installation rapide)
+
+Ce dépôt contient l'application PEBCO — une application Laravel (PHP) pour la gestion des demandes de crédit communautaires.
+
+Objectifs du README
+- Expliquer la configuration locale minimale.
+- Décrire les commandes pour démarrer l'application.
+- Détailler la configuration du canal d'emails (Maildev) utilisée pour les tests locaux.
+
+Prérequis
+- PHP 8.4 (ou version compatible Laravel utilisée dans le projet).
+- Composer
+- Node.js 18+ et npm
+- MySQL (ou SQLite si vous préférez configurer DB en sqlite)
+
+Installation (local)
+1. Cloner le dépôt:
+
+```bash
+git clone <repo-url> pebco
+cd pebco
+```
+
+2. Installer les dépendances PHP et JS:
+
+```bash
+composer install --no-interaction --prefer-dist
+npm install
+```
+
+3. Copier le fichier d'environnement et générer la clé d'application:
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+4. Configurer la base de données dans `.env`:
+- Pour MySQL, renseigner `DB_CONNECTION=mysql`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`.
+- Pour SQLite, mettez `DB_CONNECTION=sqlite` et `DB_DATABASE=/absolute/path/to/database.sqlite` ou `database/database.sqlite` puis créez le fichier:
+
+```bash
+touch database/database.sqlite
+chmod 664 database/database.sqlite
+```
+
+5. Appliquer les migrations nécessaires (ou uniquement celles manquantes):
+
+```bash
+php artisan migrate --force
+```
+
+Remarques: ce dépôt contient plusieurs migrations déjà appliquées en production. Si votre base existe déjà, préférez exécuter `php artisan migrate --path=database/migrations/2026_05_07_000001_create_password_reset_tokens_table.php --force` pour appliquer une migration ciblée.
+
+Mail (en local avec Maildev)
+- Le projet est configuré pour utiliser SMTP local pour le développement. Pour capturer les emails localement, installez Maildev (via npm) et lancez-le:
+
+```bash
+npx maildev --smtp 1025 --web 1080
+```
+
+- Dans l'interface web (`http://127.0.0.1:1080`) vous verrez les emails envoyés par l'application (réinitialisation de mot de passe, notifications, etc.).
+
+Fonctionnalités principales
+- Authentification multi-guard: `admin` et `agent`.
+- Gestion des sessions en base (`SESSION_DRIVER=database`).
+- Réinitialisation de mot de passe: flux custom compatible `admin` et `agent`, via `password_reset_tokens`.
+
+Points d'attention
+- Certains modèles (`Admin`) ne possèdent pas de colonnes timestamps; le modèle est configuré avec `public $timestamps = false`.
+- Si vous rencontrez des erreurs SQL sur des tables manquantes, vérifiez les migrations présentes dans `database/migrations` et appliquez-les individuellement.
+
+Commandes utiles
+- Lancer le serveur local:
+
+```bash
+php artisan serve --host=127.0.0.1 --port=8000
+```
+
+- Vider les caches:
+
+```bash
+php artisan optimize:clear
+```
+
+- Lister les routes (utile pour vérifier le nouveau flux de reset):
+
+```bash
+php artisan route:list --name=password
+```
+
+Tests
+- Les tests PHPUnit sont présents sous `tests/`. Pour lancer les tests:
+
+```bash
+./vendor/bin/phpunit
+```
+
+Contributions et conventions Git
+- Commits atomiques et messages clairs (type:scope: description) — ex: `fix(auth): disable admin timestamps`.
+- Créez une branche pour chaque fonctionnalité: `git checkout -b feat/password-reset`.
+
+Déploiement
+- Adapter les variables d'environnement en production: DB, MAIL, CACHE, SESSION.
+- Exécuter les migrations en production avec prudence (ex: sauvegarde avant `php artisan migrate --force`).
+
+Support
+- Pour toute question, ouvre une issue dans le dépôt avec le plus d'informations possible (logs, .env non sensibles, étapes pour reproduire).
+
+---
+
+Merci — je peux aussi produire une checklist d'opérations pour la mise en production si tu le souhaites.
