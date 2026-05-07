@@ -99,6 +99,47 @@ php artisan route:list --name=password
 - Adapter les variables d'environnement (DB, MAIL, CACHE, SESSION).
 - Sauvegarder la DB avant d'exécuter `php artisan migrate --force` en production.
 
+## 10) CI / CD (GitHub Actions) — déploiement via SSH
+
+Un workflow GitHub Actions est inclus pour déployer automatiquement le contenu vers votre hébergement partagé (o2switch) lorsque vous poussez sur `main`, ou manuellement via `workflow_dispatch`.
+
+Comment ça marche:
+- Le workflow construit l'application (composer + assets) sur GitHub, puis synchronise les fichiers vers le serveur via `rsync` sur SSH.
+- Il exécute ensuite quelques commandes distantes (composer install, clear caches). Les migrations ne sont exécutées que si le secret `RUN_MIGRATIONS` est défini à `true`.
+
+Secrets requis (Repository > Settings > Secrets):
+- `SSH_PRIVATE_KEY` : clé privée SSH (PEM) pour se connecter au serveur.
+- `SSH_HOST` : hôte SSH (ex: `monserveur.o2switch.net`).
+- `SSH_PORT` : port SSH (par défaut `22`).
+- `SSH_USER` : utilisateur SSH (ex: `ronaldo`).
+- `REMOTE_PATH` : chemin absolu vers le dossier du site sur le serveur (ex: `/home/ronaldo/www/mon-site`).
+- `RUN_MIGRATIONS` : `true` ou `false` (par défaut `false`).
+
+Comment générer et installer la clé SSH :
+1. Sur votre poste local, créez une paire de clés (sans passphrase si vous voulez usage CI automatique) :
+
+```bash
+ssh-keygen -t rsa -b 4096 -C "deploy@pebco" -f ~/.ssh/pebco_deploy
+```
+
+2. Copiez la clé publique sur votre serveur (o2switch) :
+
+```bash
+ssh-copy-id -i ~/.ssh/pebco_deploy.pub ronaldo@monserveur.o2switch.net
+```
+
+3. Dans GitHub, ajoutez la clé privée (`~/.ssh/pebco_deploy`) dans `Secrets` sous le nom `SSH_PRIVATE_KEY`, et complétez `SSH_HOST`, `SSH_USER`, `SSH_PORT`, `REMOTE_PATH`.
+
+Notes spécifiques à o2switch (hébergement mutualisé) :
+- Assurez-vous que l'accès SSH est activé sur votre compte o2switch et que l'utilisateur a les droits d'écriture sur `REMOTE_PATH`.
+- Certains hébergeurs ont des chemins différents pour le webroot (public_html, www). Ajustez `REMOTE_PATH` en conséquence.
+- Si vous n'avez pas `composer` côté serveur, l'action essaie d'installer les dépendances côté GitHub et synchronise les fichiers; mais il est préférable d'avoir `composer` installé sur le serveur pour exécuter les optimisations et migrations.
+
+Sécurité
+- Ne mettez jamais votre `.env` dans le dépôt. Le workflow exclut `.env` par défaut.
+- Les secrets GitHub sont masqués dans les logs et doivent être gérés via l'interface GitHub.
+
+
 ---
 
 Si tu veux, je peux :
