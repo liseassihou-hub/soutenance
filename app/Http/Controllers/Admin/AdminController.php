@@ -7,6 +7,7 @@ use App\Models\Agent;
 use App\Models\Client;
 use App\Models\DemandeCredit;
 use App\Models\User;
+use App\Models\Agence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -103,7 +104,8 @@ class AdminController extends Controller
      */
     public function createAgentForm()
     {
-        return view('admin.create-agent');
+        $agences = Agence::orderBy('nom_agence')->get();
+        return view('admin.create-agent', compact('agences'));
     }
 
     /**

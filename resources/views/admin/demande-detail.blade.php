@@ -4,8 +4,13 @@
 
 @section('content')
 <div class="flex h-screen bg-green-50">
+    <!-- Mobile Menu Toggle -->
+    <button id="adminSidebarToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-green-600 text-white p-3 rounded-lg shadow-lg hover:bg-green-700 transition-colors">
+        <i class="fas fa-bars text-xl"></i>
+    </button>
+    
     <!-- Sidebar -->
-    <aside class="w-64 bg-green-900 text-white flex-shrink-0">
+    <aside id="adminSidebar" class="admin-sidebar w-64 bg-green-900 text-white flex-shrink-0 fixed lg:relative lg:translate-x-0 -translate-x-full transition-transform duration-300 ease-in-out z-40 h-full transform">
         <div class="p-6">
             <div class="flex items-center space-x-3 mb-8">
                 <i class="fas fa-university text-green-400 text-2xl"></i>
@@ -58,7 +63,7 @@
     </aside>
 
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col overflow-hidden">
+    <div class="flex-1 flex flex-col overflow-hidden lg:ml-0">
         <!-- Header -->
         <header class="bg-white shadow-sm border-b border-green-200">
             <div class="px-6 py-4">
@@ -220,5 +225,58 @@
 </div>
 
 <script>
-
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebarToggle = document.getElementById('adminSidebarToggle');
+    const sidebar = document.getElementById('adminSidebar');
+    
+    if (sidebarToggle && sidebar) {
+        // Initialize sidebar state
+        let isSidebarOpen = false;
+        
+        // Function to toggle sidebar
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            
+            if (isSidebarOpen) {
+                sidebar.style.transform = 'translateX(0)';
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.style.transform = 'translateX(-100%)';
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        // Toggle sidebar on button click
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            if (window.innerWidth < 1024 && isSidebarOpen && 
+                !sidebar.contains(event.target) && 
+                !sidebarToggle.contains(event.target)) {
+                toggleSidebar();
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 1024) {
+                sidebar.style.transform = 'translateX(0)';
+                document.body.style.overflow = 'auto';
+                isSidebarOpen = false;
+            } else {
+                sidebar.style.transform = 'translateX(-100%)';
+                document.body.style.overflow = 'auto';
+                isSidebarOpen = false;
+            }
+        });
+        
+        // Initialize sidebar state
+        if (window.innerWidth >= 1024) {
+            sidebar.style.transform = 'translateX(0)';
+        } else {
+            sidebar.style.transform = 'translateX(-100%)';
+        }
+    }
+});
 </script>

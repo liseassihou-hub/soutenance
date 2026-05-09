@@ -58,6 +58,49 @@ Route::get('/agent/login', [App\Http\Controllers\AgentAuthController::class, 'sh
 Route::post('/agent/login', [App\Http\Controllers\AgentAuthController::class, 'login'])->name('agent.login.submit');
 Route::post('/agent/logout', [App\Http\Controllers\AgentAuthController::class, 'logout'])->name('agent.logout');
 
+// Routes de test pour déboguer les agences
+Route::get('/test-agences', function() {
+    try {
+        $agences = \App\Models\Agence::orderBy('nom_agence')->get();
+        
+        echo "<h1>Test des agences</h1>";
+        echo "<p>Nombre d'agences: " . $agences->count() . "</p>";
+        
+        if ($agences->count() > 0) {
+            echo "<h2>Liste des agences:</h2>";
+            echo "<ul>";
+            foreach ($agences as $agence) {
+                echo "<li>ID: " . $agence->id_agence . " - Nom: " . $agence->nom_agence . "</li>";
+            }
+            echo "</ul>";
+        } else {
+            echo "<p style='color: red;'>Aucune agence trouvée!</p>";
+        }
+        
+    } catch (Exception $e) {
+        echo "<p style='color: red;'>ERREUR: " . $e->getMessage() . "</p>";
+    }
+});
+
+Route::get('/test-seeder', function() {
+    try {
+        echo "<h1>Test du seeder d'agences</h1>";
+        
+        // Exécuter le seeder manuellement
+        $seeder = new \Database\Seeders\AgenceSeeder();
+        $seeder->run();
+        
+        echo "<p>Seeder exécuté avec succès!</p>";
+        
+        // Vérifier le résultat
+        $count = \App\Models\Agence::count();
+        echo "<p>Nombre d'agences après seeder: " . $count . "</p>";
+        
+    } catch (Exception $e) {
+        echo "<p style='color: red;'>ERREUR lors du seeder: " . $e->getMessage() . "</p>";
+    }
+});
+
 // Routes Agent (protégé par middleware auth:agent)
 Route::prefix('agent')->name('agent.')->middleware(['auth:agent', 'session.cookie:agent'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Agent\AgentController::class, 'dashboard'])->name('dashboard');

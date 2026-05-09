@@ -606,76 +606,13 @@ body {
                 <label>Agence <span style="color:red;">*</span></label>
                 <select name="agence" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                     <option value="">Sélectionnez une agence</option>
-                    <option value="Agence de Abomey" {{ old('agence') == 'Agence de Abomey' ? 'selected' : '' }}>Agence de Abomey</option>
-                    <option value="Agence de Adjohoun" {{ old('agence') == 'Agence de Adjohoun' ? 'selected' : '' }}>Agence de Adjohoun</option>
-                    <option value="Agence de Agbangnizoun" {{ old('agence') == 'Agence de Agbangnizoun' ? 'selected' : '' }}>Agence de Agbangnizoun</option>
-                    <option value="Agence de Aklampa" {{ old('agence') == 'Agence de Aklampa' ? 'selected' : '' }}>Agence de Aklampa</option>
-                    <option value="Agence de Akassato" {{ old('agence') == 'Agence de Akassato' ? 'selected' : '' }}>Agence de Akassato</option>
-                    <option value="Agence de Allada" {{ old('agence') == 'Agence de Allada' ? 'selected' : '' }}>Agence de Allada</option>
-                    <option value="Agence de Azovè" {{ old('agence') == 'Agence de Azovè' ? 'selected' : '' }}>Agence de Azovè</option>
-                    <option value="Agence de Bantè" {{ old('agence') == 'Agence de Bantè' ? 'selected' : '' }}>Agence de Bantè</option>
-                    <option value="Agence de Banikoara" {{ old('agence') == 'Agence de Banikoara' ? 'selected' : '' }}>Agence de Banikoara</option>
-                    <option value="Agence de Bassila" {{ old('agence') == 'Agence de Bassila' ? 'selected' : '' }}>Agence de Bassila</option>
-                    <option value="Agence de Bembèrèkè" {{ old('agence') == 'Agence de Bembèrèkè' ? 'selected' : '' }}>Agence de Bembèrèkè</option>
-                    <option value="Agence de Bohicon" {{ old('agence') == 'Agence de Bohicon' ? 'selected' : '' }}>Agence de Bohicon</option>
-                    <option value="Agence de Cobly" {{ old('agence') == 'Agence de Cobly' ? 'selected' : '' }}>Agence de Cobly</option>
-                    <option value="Agence de Cococodji" {{ old('agence') == 'Agence de Cococodji' ? 'selected' : '' }}>Agence de Cococodji</option>
-                    <option value="Agence de Comè" {{ old('agence') == 'Agence de Comè' ? 'selected' : '' }}>Agence de Comè</option>
-                    <option value="Agence de Copargo" {{ old('agence') == 'Agence de Copargo' ? 'selected' : '' }}>Agence de Copargo</option>
-                    <option value="Agence de Covè" {{ old('agence') == 'Agence de Covè' ? 'selected' : '' }}>Agence de Covè</option>
-                    <option value="Agence de Dassa" {{ old('agence') == 'Agence de Dassa' ? 'selected' : '' }}>Agence de Dassa</option>
-                    <option value="Agence de Djèrègbé" {{ old('agence') == 'Agence de Djèrègbé' ? 'selected' : '' }}>Agence de Djèrègbé</option>
-                    <option value="Agence de Djidja" {{ old('agence') == 'Agence de Djidja' ? 'selected' : '' }}>Agence de Djidja</option>
-                    <option value="Agence de Djougou" {{ old('agence') == 'Agence de Djougou' ? 'selected' : '' }}>Agence de Djougou</option>
-                    <option value="Agence de Dogbo" {{ old('agence') == 'Agence de Dogbo' ? 'selected' : '' }}>Agence de Dogbo</option>
-                    <option value="Agence de Fidjrossè" {{ old('agence') == 'Agence de Fidjrossè' ? 'selected' : '' }}>Agence de Fidjrossè</option>
-                    <option value="Agence de Founougo" {{ old('agence') == 'Agence de Founougo' ? 'selected' : '' }}>Agence de Founougo</option>
-                    <option value="Agence de Glazoué" {{ old('agence') == 'Agence de Glazoué' ? 'selected' : '' }}>Agence de Glazoué</option>
-                    <option value="Agence de Godomey" {{ old('agence') == 'Agence de Godomey' ? 'selected' : '' }}>Agence de Godomey</option>
-                    <option value="Agence de Gogounou" {{ old('agence') == 'Agence de Gogounou' ? 'selected' : '' }}>Agence de Gogounou</option>
-                    <option value="Agence de Goumori" {{ old('agence') == 'Agence de Goumori' ? 'selected' : '' }}>Agence de Goumori</option>
-                    <option value="Agence de Hêvié" {{ old('agence') == 'Agence de Hêvié' ? 'selected' : '' }}>Agence de Hêvié</option>
-                    <option value="Agence de Hlassamè" {{ old('agence') == 'Agence de Hlassamè' ? 'selected' : '' }}>Agence de Hlassamè</option>
-                    <option value="Agence de Houéyogbé" {{ old('agence') == 'Agence de Houéyogbé' ? 'selected' : '' }}>Agence de Houéyogbé</option>
-                    <option value="Agence de Kalalé" {{ old('agence') == 'Agence de Kalalé' ? 'selected' : '' }}>Agence de Kalalé</option>
-                    <option value="Agence de Kandi" {{ old('agence') == 'Agence de Kandi' ? 'selected' : '' }}>Agence de Kandi</option>
-                    <option value="Agence de Kérou" {{ old('agence') == 'Agence de Kérou' ? 'selected' : '' }}>Agence de Kérou</option>
-                    <option value="Agence de Kétou" {{ old('agence') == 'Agence de Kétou' ? 'selected' : '' }}>Agence de Kétou</option>
-                    <option value="Agence de Kilibo" {{ old('agence') == 'Agence de Kilibo' ? 'selected' : '' }}>Agence de Kilibo</option>
-                    <option value="Agence de Klouékanmè" {{ old('agence') == 'Agence de Klouékanmè' ? 'selected' : '' }}>Agence de Klouékanmè</option>
-                    <option value="Agence de Kouandé" {{ old('agence') == 'Agence de Kouandé' ? 'selected' : '' }}>Agence de Kouandé</option>
-                    <option value="Agence de Lokossa" {{ old('agence') == 'Agence de Lokossa' ? 'selected' : '' }}>Agence de Lokossa</option>
-                    <option value="Agence de Malanville" {{ old('agence') == 'Agence de Malanville' ? 'selected' : '' }}>Agence de Malanville</option>
-                    <option value="Agence de Matéri" {{ old('agence') == 'Agence de Matéri' ? 'selected' : '' }}>Agence de Matéri</option>
-                    <option value="Agence de Mènontin" {{ old('agence') == 'Agence de Mènontin' ? 'selected' : '' }}>Agence de Mènontin</option>
-                    <option value="Agence de N'dali" {{ old('agence') == 'Agence de N\'dali' ? 'selected' : '' }}>Agence de N'dali</option>
-                    <option value="Agence de Natitingou" {{ old('agence') == 'Agence de Natitingou' ? 'selected' : '' }}>Agence de Natitingou</option>
-                    <option value="Agence de Nikki" {{ old('agence') == 'Agence de Nikki' ? 'selected' : '' }}>Agence de Nikki</option>
-                    <option value="Agence de Ouidah" {{ old('agence') == 'Agence de Ouidah' ? 'selected' : '' }}>Agence de Ouidah</option>
-                    <option value="Agence de Ouèssè" {{ old('agence') == 'Agence de Ouèssè' ? 'selected' : '' }}>Agence de Ouèssè</option>
-                    <option value="Agence de Parakou Albarika" {{ old('agence') == 'Agence de Parakou Albarika' ? 'selected' : '' }}>Agence de Parakou Albarika</option>
-                    <option value="Agence de Parakou Gah" {{ old('agence') == 'Agence de Parakou Gah' ? 'selected' : '' }}>Agence de Parakou Gah</option>
-                    <option value="Agence de Parakou Guèma" {{ old('agence') == 'Agence de Parakou Guèma' ? 'selected' : '' }}>Agence de Parakou Guèma</option>
-                    <option value="Agence de Pehunco" {{ old('agence') == 'Agence de Pehunco' ? 'selected' : '' }}>Agence de Pehunco</option>
-                    <option value="Agence de Pèrèrè" {{ old('agence') == 'Agence de Pèrèrè' ? 'selected' : '' }}>Agence de Pèrèrè</option>
-                    <option value="Agence de Pobè" {{ old('agence') == 'Agence de Pobè' ? 'selected' : '' }}>Agence de Pobè</option>
-                    <option value="Agence de Porto-Novo" {{ old('agence') == 'Agence de Porto-Novo' ? 'selected' : '' }}>Agence de Porto-Novo</option>
-                    <option value="Agence de Porto-Novo 2" {{ old('agence') == 'Agence de Porto-Novo 2' ? 'selected' : '' }}>Agence de Porto-Novo 2</option>
-                    <option value="Agence de Savalou" {{ old('agence') == 'Agence de Savalou' ? 'selected' : '' }}>Agence de Savalou</option>
-                    <option value="Agence de Savè" {{ old('agence') == 'Agence de Savè' ? 'selected' : '' }}>Agence de Savè</option>
-                    <option value="Agence de Ségbana" {{ old('agence') == 'Agence de Ségbana' ? 'selected' : '' }}>Agence de Ségbana</option>
-                    <option value="Agence de Sinendé" {{ old('agence') == 'Agence de Sinendé' ? 'selected' : '' }}>Agence de Sinendé</option>
-                    <option value="Agence de Sainte-Rita" {{ old('agence') == 'Agence de Sainte-Rita' ? 'selected' : '' }}>Agence de Sainte-Rita</option>
-                    <option value="Agence de Sakété" {{ old('agence') == 'Agence de Sakété' ? 'selected' : '' }}>Agence de Sakété</option>
-                    <option value="Agence de Tankpè" {{ old('agence') == 'Agence de Tankpè' ? 'selected' : '' }}>Agence de Tankpè</option>
-                    <option value="Agence de Tanguiéta" {{ old('agence') == 'Agence de Tanguiéta' ? 'selected' : '' }}>Agence de Tanguiéta</option>
-                    <option value="Agence de Tchaourou" {{ old('agence') == 'Agence de Tchaourou' ? 'selected' : '' }}>Agence de Tchaourou</option>
-                    <option value="Agence de Tchetti" {{ old('agence') == 'Agence de Tchetti' ? 'selected' : '' }}>Agence de Tchetti</option>
-                    <option value="Agence de Tori Bossito" {{ old('agence') == 'Agence de Tori Bossito' ? 'selected' : '' }}>Agence de Tori Bossito</option>
-                    <option value="Agence de Yénawa" {{ old('agence') == 'Agence de Yénawa' ? 'selected' : '' }}>Agence de Yénawa</option>
-                    <option value="Agence de Za-Kpota" {{ old('agence') == 'Agence de Za-Kpota' ? 'selected' : '' }}>Agence de Za-Kpota</option>
-                    <option value="Agence de Zè" {{ old('agence') == 'Agence de Zè' ? 'selected' : '' }}>Agence de Zè</option>
-                    <option value="Agence de Zogbodomey" {{ old('agence') == 'Agence de Zogbodomey' ? 'selected' : '' }}>Agence de Zogbodomey</option>
+                    @if(isset($agences))
+                        @foreach($agences as $agence)
+                            <option value="{{ $agence->id_agence }}" {{ old('agence') == $agence->id_agence ? 'selected' : '' }}>
+                                {{ $agence->nom_agence }}
+                            </option>
+                        @endforeach
+                    @endif
                 </select>
                 @error('agence')
                     <span style="color:red; font-size:11px;">{{ $message }}</span>

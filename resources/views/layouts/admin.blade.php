@@ -48,6 +48,99 @@
         .text-green-600 {
             color: #16a34a !important;
         }
+        
+        /* Responsive Design for Admin */
+        @media (max-width: 1024px) {
+            .admin-sidebar {
+                width: 16rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                width: 14rem;
+            }
+            
+            .admin-main-content {
+                margin-left: 0;
+            }
+            
+            .admin-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .admin-table {
+                font-size: 0.875rem;
+            }
+            
+            .admin-table th,
+            .admin-table td {
+                padding: 0.5rem;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .admin-sidebar {
+                width: 100%;
+                position: fixed;
+                z-index: 50;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .admin-sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .admin-main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+            
+            .admin-stats-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            .admin-table {
+                font-size: 0.8rem;
+            }
+            
+            .admin-table th,
+            .admin-table td {
+                padding: 0.375rem;
+            }
+            
+            .admin-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .admin-header {
+                padding: 0.75rem;
+            }
+            
+            .admin-title {
+                font-size: 1.25rem;
+            }
+            
+            .admin-card {
+                padding: 1rem;
+            }
+            
+            .admin-form-input {
+                font-size: 0.875rem;
+                padding: 0.5rem;
+            }
+            
+            .admin-form-label {
+                font-size: 0.875rem;
+                margin-bottom: 0.25rem;
+            }
+        }
         .text-green-300 {
             color: #86efac !important;
         }
@@ -81,24 +174,23 @@
             transition: transform 0.3s ease;
         }
         
+        /* Sidebar mobile fix - ensure it's always visible for transform to work */
+        #adminSidebar {
+            display: block !important;
+        }
+        
+        @media (max-width: 1023px) {
+            #adminSidebar {
+                transform: translateX(-100%);
+            }
+        }
+        
         /* Fix card shadows */
         .shadow {
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
         }
         .shadow-lg {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
-        }
-        
-        /* Fix responsive issues */
-        @media (max-width: 1024px) {
-            .lg\:block {
-                display: none !important;
-            }
-        }
-        @media (min-width: 1024px) {
-            .lg\:block {
-                display: block !important;
-            }
         }
     </style>
 </head>

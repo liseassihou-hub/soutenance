@@ -4,25 +4,107 @@
 
 @push('scripts')
 <script>
-    // Mobile menu toggle
-    document.getElementById('mobileMenuToggle')?.addEventListener('click', function() {
-        const sidebar = document.querySelector('aside');
-        sidebar.classList.toggle('-translate-x-full');
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile sidebar toggle
+    const sidebarToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('adminSidebar');
+    
+    if (sidebarToggle && sidebar) {
+        // Initialize sidebar state
+        let isSidebarOpen = false;
+        
+        // Function to toggle sidebar
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            console.log('Toggle sidebar:', isSidebarOpen);
+            
+            if (isSidebarOpen) {
+                // Show sidebar
+                sidebar.style.transform = 'translateX(0)';
+                document.body.style.overflow = 'hidden';
+                console.log('Showing sidebar');
+            } else {
+                // Hide sidebar
+                sidebar.style.transform = 'translateX(-100%)';
+                document.body.style.overflow = 'auto';
+                console.log('Hiding sidebar');
+            }
+        }
+        
+        // Toggle sidebar on button click
+        sidebarToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Hamburger clicked');
+            toggleSidebar();
+        });
+        
+        // Close sidebar with close button
+        const sidebarClose = document.getElementById('sidebarClose');
+        if (sidebarClose) {
+            sidebarClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Close button clicked');
+                if (isSidebarOpen) {
+                    toggleSidebar();
+                }
+            });
+        }
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            if (window.innerWidth < 1024 && isSidebarOpen && 
+                !sidebar.contains(event.target) && 
+                !sidebarToggle.contains(event.target) &&
+                !sidebarClose?.contains(event.target)) {
+                console.log('Clicking outside - closing sidebar');
+                toggleSidebar();
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 1024) {
+                sidebar.style.transform = 'translateX(0)';
+                document.body.style.overflow = 'auto';
+                isSidebarOpen = false;
+                console.log('Desktop mode - sidebar visible');
+            } else {
+                sidebar.style.transform = 'translateX(-100%)';
+                document.body.style.overflow = 'auto';
+                isSidebarOpen = false;
+                console.log('Mobile mode - sidebar hidden');
+            }
+        });
+        
+        // Initialize sidebar state
+        if (window.innerWidth >= 1024) {
+            sidebar.style.transform = 'translateX(0)';
+            console.log('Init: Desktop mode');
+        } else {
+            sidebar.style.transform = 'translateX(-100%)';
+            console.log('Init: Mobile mode');
+        }
+    }
+});
 </script>
 @endpush
 
 @section('content')
-<div class="h-screen bg-green-50 flex">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-green-900 text-white flex-shrink-0 fixed lg:relative lg:translate-x-0 -translate-x-full transition-transform duration-300 lg:block z-20 h-screen overflow-y-auto">
+<div class="min-h-screen bg-green-50 flex">
+    <!-- Sidebar Fixed Position -->
+    <aside id="adminSidebar" class="w-64 bg-green-900 text-white flex-shrink-0 fixed lg:relative lg:translate-x-0 -translate-x-full transition-transform duration-300 z-40 h-screen overflow-y-auto hidden lg:block">
         <div class="p-6">
-            <div class="flex items-center space-x-3 mb-8">
-                <i class="fas fa-university text-green-400 text-2xl"></i>
-                <div>
-                    <h2 class="text-xl font-bold">PEBCO</h2>
-                    <p class="text-green-200 text-sm">Admin Panel</p>
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-university text-green-400 text-2xl"></i>
+                    <div>
+                        <h2 class="text-xl font-bold">PEBCO</h2>
+                        <p class="text-green-200 text-sm">Admin Panel</p>
+                    </div>
                 </div>
+                <button id="sidebarClose" class="lg:hidden text-green-400 hover:text-white transition-colors p-2">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
             </div>
             
             <!-- Navigation -->
@@ -67,15 +149,10 @@
         </div>
     </aside>
 
-    <!-- Mobile Menu Toggle -->
-<button id="mobileMenuToggle" class="lg:hidden fixed top-4 left-4 z-30 bg-green-600 text-white p-3 rounded-lg">
-    <i class="fas fa-bars"></i>
-</button>
-
-<!-- Main Content -->
-    <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-hidden relative z-30">
         <!-- Mobile Menu Toggle -->
-        <button id="mobileMenuToggle" class="lg:hidden fixed top-4 left-4 z-30 bg-green-600 text-white p-3 rounded-lg">
+        <button id="mobileMenuToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-green-600 text-white p-3 rounded-lg shadow-lg hover:bg-green-700 transition-colors">
             <i class="fas fa-bars"></i>
         </button>
 

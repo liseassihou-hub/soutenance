@@ -3,16 +3,21 @@
 @section('title', 'Créer un Agent - PEBCO')
 
 @section('content')
-<div class="flex h-screen bg-green-50">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-green-900 text-white flex-shrink-0">
+<div class="h-screen bg-green-50 flex">
+    <!-- Sidebar Fixed Position -->
+    <aside id="adminSidebar" class="w-64 bg-green-900 text-white flex-shrink-0 fixed lg:relative lg:translate-x-0 -translate-x-full transition-transform duration-300 lg:block z-40 h-screen overflow-y-auto">
         <div class="p-6">
-            <div class="flex items-center space-x-3 mb-8">
-                <i class="fas fa-university text-green-400 text-2xl"></i>
-                <div>
-                    <h2 class="text-xl font-bold">PEBCO</h2>
-                    <p class="text-green-200 text-sm">Admin Panel</p>
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-university text-green-400 text-2xl"></i>
+                    <div>
+                        <h2 class="text-xl font-bold">PEBCO</h2>
+                        <p class="text-green-200 text-sm">Admin Panel</p>
+                    </div>
                 </div>
+                <button id="sidebarClose" class="lg:hidden text-green-400 hover:text-white transition-colors p-2">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
             </div>
             
             <!-- Navigation -->
@@ -59,17 +64,24 @@
 
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileMenuToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-green-600 text-white p-3 rounded-lg shadow-lg hover:bg-green-700 transition-colors">
+            <i class="fas fa-bars"></i>
+        </button>
+
         <!-- Header -->
-        <header class="bg-white shadow-sm border-b border-green-200">
+        <header class="bg-white shadow-sm border-b border-green-200 lg:mt-0 mt-16">
             <div class="px-6 py-4">
                 <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-4">
-                        <a href="/admin/agents" class="text-green-600 hover:text-green-800">
-                            <i class="fas fa-arrow-left mr-2"></i>Retour aux Agents
-                        </a>
-                        <div>
-                            <h1 class="text-2xl font-bold text-green-900">Créer un Agent</h1>
-                            <p class="text-green-700 text-sm">Ajouter un nouvel agent au système</p>
+                    <div class="lg:pl-0 pl-16">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
+                            <a href="/admin/agents" class="text-green-600 hover:text-green-800 mb-2 sm:mb-0">
+                                <i class="fas fa-arrow-left mr-2"></i>Retour aux Agents
+                            </a>
+                            <div>
+                                <h1 class="text-2xl font-bold text-green-900">Créer un Agent</h1>
+                                <p class="text-green-700 text-sm">Ajouter un nouvel agent au système</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,6 +145,21 @@
                                     </select>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Agence *</label>
+                                    <select name="id_agence" required class="w-full px-3 py-2 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                                        <option value="">Sélectionnez une agence</option>
+                                        @if(isset($agences))
+                                            @foreach($agences as $agence)
+                                                <option value="{{ $agence->id_agence }}" {{ old('id_agence') == $agence->id_agence ? 'selected' : '' }}>
+                                                    {{ $agence->nom_agence }}
+                                                </option>
+                                            @endforeach
+                                        
+                                        @endif
+                                    </select>
+                                </div>
+                                
+                                                                <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Mot de passe *</label>
                                     <div class="relative">
                                         <input type="password" name="password" id="password" required minlength="6" class="w-full px-3 py-2 pr-10 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Minimum 6 caractères">
@@ -224,6 +251,76 @@ function togglePassword() {
         passwordInput.type = 'password';
         toggleIcon.classList.remove('fa-eye-slash');
         toggleIcon.classList.add('fa-eye');
+    }
+}
+
+// Mobile sidebar toggle
+const sidebarToggle = document.getElementById('mobileMenuToggle');
+const sidebar = document.getElementById('adminSidebar');
+
+console.log('Debug: sidebarToggle:', sidebarToggle);
+console.log('Debug: sidebar:', sidebar);
+
+if (sidebarToggle && sidebar) {
+    // Initialize sidebar state
+    let isSidebarOpen = false;
+    
+    // Function to toggle sidebar
+    function toggleSidebar() {
+        console.log('Debug: toggleSidebar called, isSidebarOpen:', isSidebarOpen);
+        isSidebarOpen = !isSidebarOpen;
+        
+        if (isSidebarOpen) {
+            sidebar.style.transform = 'translateX(0)';
+            document.body.style.overflow = 'hidden';
+            console.log('Debug: sidebar opened');
+        } else {
+            sidebar.style.transform = 'translateX(-100%)';
+            document.body.style.overflow = 'auto';
+            console.log('Debug: sidebar closed');
+        }
+    }
+    
+    // Toggle sidebar on button click
+    sidebarToggle.addEventListener('click', function() {
+        console.log('Debug: hamburger clicked!');
+        toggleSidebar();
+    });
+    
+    // Close sidebar with close button
+    const sidebarClose = document.getElementById('sidebarClose');
+    if (sidebarClose) {
+        sidebarClose.addEventListener('click', toggleSidebar);
+    }
+    
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+        if (window.innerWidth < 1024 && isSidebarOpen && 
+            !sidebar.contains(event.target) && 
+            !sidebarToggle.contains(event.target) &&
+            !sidebarClose?.contains(event.target)) {
+            toggleSidebar();
+        }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 1024) {
+            sidebar.style.transform = 'translateX(0)';
+            document.body.style.overflow = 'auto';
+            isSidebarOpen = false;
+        } else {
+            sidebar.style.transform = 'translateX(-100%)';
+            document.body.style.overflow = 'auto';
+            isSidebarOpen = false;
+        }
+    });
+    
+    // Initialize sidebar state
+    if (window.innerWidth >= 1024) {
+        sidebar.style.transform = 'translateX(0)';
+    } else {
+        sidebar.style.transform = 'translateX(-100%)';
     }
 }
 </script>

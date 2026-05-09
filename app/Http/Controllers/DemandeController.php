@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\DemandeCredit;
+use App\Models\Agence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -14,7 +15,8 @@ class DemandeController extends Controller
     public function create(Request $request)
     {
         $typeCredit = $request->get('type', 'individuel');
-        return view('demande.create', compact('typeCredit'));
+        $agences = Agence::orderBy('nom_agence')->get();
+        return view('demande.create', compact('typeCredit', 'agences'));
     }
 
     public function store(Request $request)
@@ -32,7 +34,7 @@ class DemandeController extends Controller
             'adresse_personnelle'       => 'required|string|max:255',
             'telephone'                 => 'required|string|max:20',
             'numero_compte'             => 'required|string|max:50',
-            'agence'                    => 'required|string|max:100',
+            'agence'                    => 'required|integer|exists:agences,id_agence',
             'description_activite'      => 'required|string',
             'montant_demande'           => 'required|numeric|min:10000',
             'duree_mois'                => 'required|integer|min:1|max:36',

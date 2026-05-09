@@ -18,6 +18,7 @@ class Agent extends Authenticatable
         'statut',
         'telephone',
         'password',
+        'id_agence',
       
     ];
 
@@ -38,5 +39,10 @@ class Agent extends Authenticatable
     public function demandesTraitees()
     {
         return $this->hasMany(\App\Models\DemandeCredit::class, 'agent_id');
+    }
+    
+    public function agence()
+    {
+        return $this->belongsTo(\App\Models\Agence::class, 'id_agence');
     }
 }

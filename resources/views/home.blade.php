@@ -35,31 +35,31 @@
             
             <!-- Boutons d'accès -->
             
-    <a href="{{ route('nos-credits') }}" class="credit-btn" style="position: relative; z-index: 9999; pointer-events: auto; background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%); color: white; padding: 1rem 2.5rem; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.1rem; border-radius: 50px; text-decoration: none; display: inline-block; box-shadow: 0 4px 16px rgba(30, 94, 30, 0.3);">
-        <i class="fas fa-paper-plane me-2"></i> Nos offres de crédits
+    <a href="{{ route('nos-credits') }}" class="credit-btn relative z-50 inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-green-600 to-green-500 text-white font-poppins font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+        <i class="fas fa-paper-plane"></i> 
+        <span>Nos offres de crédits</span>
     </a>
 </div>
-        </div>
-    </section>
+</section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-gradient-to-br from-green-50 to-green-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section id="about" class="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-green-50 to-green-100">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center">
                 <div data-aos="fade-right">
                     <div class="mb-8">
-                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4"> PEBCo BETHESDA</h2>
-                        <div class="flex items-center mb-6">
-                            <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold mr-3">SFD</span>
-                            <span class="text-xl text-gray-700">Institution de Microfinance de confiance</span>
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4"> PEBCo BETHESDA</h2>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center mb-6">
+                            <span class="bg-green-600 text-white px-3 py-1 rounded-full text-xs sm:text-sm font-semibold mr-3 mb-2 sm:mb-0">SFD</span>
+                            <span class="text-lg sm:text-xl text-gray-700">Institution de Microfinance de confiance</span>
                         </div>
                     </div>
-                    <p class="text-lg text-gray-600 mb-6 leading-relaxed text-justify">
+                    <p class="text-base sm:text-lg text-gray-600 mb-6 leading-relaxed text-justify">
                         PEBCO est une institution de microfinance engagée dans le développement économique 
                         et social de nos communautés. Nous offrons des services financiers adaptés aux besoins 
                         des entrepreneurs, des agriculteurs et des ménages.
                     </p>
-                    <p class="text-lg text-gray-600 mb-8 leading-relaxed text-justify">
+                    <p class="text-base sm:text-lg text-gray-600 mb-8 leading-relaxed text-justify">
                         En tant que SFD (Système Financier Décentralisé), nous nous efforçons de rendre 
                         les services financiers accessibles à tous, en particulier aux populations rurales 
                         et urbaines défavorisées.
@@ -68,29 +68,29 @@
                 <div data-aos="fade-left">
                     <div class="relative">
                         <img src="{{ asset('images/slider/about.jpg') }}" alt="À propos de PEBCO" 
-                             class="w-full h-[400px] lg:h-[500px] object-cover rounded-2xl shadow-2xl">
+                             class="w-full h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px] object-cover rounded-2xl shadow-2xl">
                         <div class="absolute inset-0 bg-gradient-to-br from-green-600 to-green-800 opacity-10 rounded-2xl pointer-events-none"></div>
                     </div>
                 </div>
             </div>
             
             <!-- Mission & Valeurs & Impact -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 mt-12 md:mt-16">
                 <div data-aos="fade-right">
                     <div class="relative">
                         <img src="{{ asset('images/slider/slider2.avif') }}" alt="Mission & Valeurs" 
-                             class="w-full h-[400px] lg:h-[500px] object-cover rounded-2xl shadow-xl">
+                             class="w-full h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px] object-cover rounded-2xl shadow-xl">
                         <div class="absolute inset-0 bg-gradient-to-br from-green-600 to-green-800 opacity-10 rounded-2xl pointer-events-none"></div>
                     </div>
                 </div>
                 <div data-aos="fade-left">
                     <!-- Mission & Vision -->
                     <div class="mb-8">
-                        <h5 class="text-2xl font-bold text-green-600 mb-4 flex items-center">
-                            <i class="fas fa-bullseye mr-3"></i>
+                        <h5 class="text-xl sm:text-2xl font-bold text-green-600 mb-4 flex items-center">
+                            <i class="fas fa-bullseye mr-2 sm:mr-3 text-lg sm:text-xl"></i>
                             Notre Mission
                         </h5>
-                        <p class="text-lg text-gray-600 leading-relaxed text-justify">
+                        <p class="text-base sm:text-lg text-gray-600 leading-relaxed text-justify">
                             Promouvoir l'inclusion financière en offrant des solutions adaptées 
                             aux besoins réels des entrepreneurs, agriculteurs et ménages.
                         </p>
@@ -98,47 +98,47 @@
                     
                     <!-- Valeurs -->
                     <div class="mb-8">
-                        <h5 class="text-2xl font-bold text-green-600 mb-4 flex items-center">
-                            <i class="fas fa-heart mr-3"></i>
+                        <h5 class="text-xl sm:text-2xl font-bold text-green-600 mb-4 flex items-center">
+                            <i class="fas fa-heart mr-2 sm:mr-3 text-lg sm:text-xl"></i>
                             Nos Valeurs
                         </h5>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                             <div class="flex items-center mb-3">
-                                <i class="fas fa-check-circle text-green-600 mr-3 text-xl"></i>
-                                <span class="text-lg font-semibold text-gray-800">Intégrité</span>
+                                <i class="fas fa-check-circle text-green-600 mr-2 sm:mr-3 text-lg sm:text-xl"></i>
+                                <span class="text-base sm:text-lg font-semibold text-gray-800">Intégrité</span>
                             </div>
                             <div class="flex items-center mb-3">
-                                <i class="fas fa-lightbulb text-green-600 mr-3 text-xl"></i>
-                                <span class="text-lg font-semibold text-gray-800">Innovation</span>
+                                <i class="fas fa-lightbulb text-green-600 mr-2 sm:mr-3 text-lg sm:text-xl"></i>
+                                <span class="text-base sm:text-lg font-semibold text-gray-800">Innovation</span>
                             </div>
                             <div class="flex items-center mb-3">
-                                <i class="fas fa-handshake text-green-600 mr-3 text-xl"></i>
-                                <span class="text-lg font-semibold text-gray-800">Engagement</span>
+                                <i class="fas fa-handshake text-green-600 mr-2 sm:mr-3 text-lg sm:text-xl"></i>
+                                <span class="text-base sm:text-lg font-semibold text-gray-800">Engagement</span>
                             </div>
                             <div class="flex items-center mb-3">
-                                <i class="fas fa-star text-green-600 mr-3 text-xl"></i>
-                                <span class="text-lg font-semibold text-gray-800">Excellence</span>
+                                <i class="fas fa-star text-green-600 mr-2 sm:mr-3 text-lg sm:text-xl"></i>
+                                <span class="text-base sm:text-lg font-semibold text-gray-800">Excellence</span>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Impact Social -->
                     <div class="mb-8">
-                        <h5 class="text-2xl font-bold text-green-600 mb-4 flex items-center">
-                            <i class="fas fa-users mr-3"></i>
+                        <h5 class="text-xl sm:text-2xl font-bold text-green-600 mb-4 flex items-center">
+                            <i class="fas fa-users mr-2 sm:mr-3 text-lg sm:text-xl"></i>
                             Impact Social
                         </h5>
                         <div class="space-y-3">
-                            <p class="text-lg text-gray-600 flex items-start">
-                                <i class="fas fa-arrow-right text-green-600 mr-3 mt-1"></i>
+                            <p class="text-base sm:text-lg text-gray-600 flex items-start">
+                                <i class="fas fa-arrow-right text-green-600 mr-2 sm:mr-3 mt-1 text-lg sm:text-xl"></i>
                                 <span class="text-justify">Soutien aux projets communautaires et développement local</span>
                             </p>
-                            <p class="text-lg text-gray-600 flex items-start">
-                                <i class="fas fa-arrow-right text-green-600 mr-3 mt-1"></i>
+                            <p class="text-base sm:text-lg text-gray-600 flex items-start">
+                                <i class="fas fa-arrow-right text-green-600 mr-2 sm:mr-3 mt-1 text-lg sm:text-xl"></i>
                                 <span class="text-justify">Formation financière pour les entrepreneurs</span>
                             </p>
-                            <p class="text-lg text-gray-600 flex items-start">
-                                <i class="fas fa-arrow-right text-green-600 mr-3 mt-1"></i>
+                            <p class="text-base sm:text-lg text-gray-600 flex items-start">
+                                <i class="fas fa-arrow-right text-green-600 mr-2 sm:mr-3 mt-1 text-lg sm:text-xl"></i>
                                 <span class="text-justify">Réduction de la pauvreté par l'accès au crédit</span>
                             </p>
                         </div>
@@ -298,54 +298,54 @@
     </section>
 
     <!-- Pourquoi nous choisir Section -->
-    <section class="py-20 relative min-h-screen overflow-hidden" style="background-image: url('{{ asset('images/slider/reassurance.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <section id="pourquoi-nous" class="py-12 md:py-16 lg:py-20 relative min-h-[80vh] md:min-h-screen overflow-hidden" style="background-image: url('{{ asset('images/slider/reassurance.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
         <div class="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-700 opacity-40"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6" style="color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">Pourquoi nous choisir ?</h2>
-                <p class="text-2xl max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100" style="color: #f8f9fa; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative">
+            <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6" style="color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">Pourquoi nous choisir ?</h2>
+                <p class="text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100" style="color: #f8f9fa; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">
                     Des chiffres qui témoignent de notre expertise et de notre engagement
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
                 <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105">
-                        <div class="text-5xl font-bold text-white mb-2" style="color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">
+                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-4 sm:p-6 md:p-8 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105">
+                        <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2" style="color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">
                             <span class="stat-number" data-target="30">0</span>
                             <span class="text-green-400">+</span>
                         </div>
-                        <div class="text-xl font-medium" style="color: #f1f2f3; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">ans d'expérience</div>
+                        <div class="text-base sm:text-lg md:text-xl font-medium" style="color: #f1f2f3; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">ans d'expérience</div>
                     </div>
                 </div>
                 
                 <div class="text-center" data-aos="fade-up" data-aos-delay="300">
-                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105">
-                        <div class="text-5xl font-bold text-white mb-2" style="color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">
+                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-4 sm:p-6 md:p-8 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105">
+                        <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2" style="color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">
                             <span class="stat-number" data-target="14655">0</span>
                             <span class="text-green-400">+</span>
                         </div>
-                        <div class="text-lg font-medium" style="color: #f8f9fa; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">clients accompagnés</div>
+                        <div class="text-base sm:text-lg md:text-xl font-medium" style="color: #f8f9fa; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">clients accompagnés</div>
                     </div>
                 </div>
                 
                 <div class="text-center" data-aos="fade-up" data-aos-delay="400">
-                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105">
-                        <div class="text-5xl font-bold text-white mb-2" style="color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">
+                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-4 sm:p-6 md:p-8 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105">
+                        <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2" style="color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">
                             <span class="stat-number" data-target="1300">0</span>
                             <span class="text-green-400">%</span>
                         </div>
-                        <div class="text-lg font-medium" style="color: #f8f9fa; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">crédits accordés</div>
+                        <div class="text-base sm:text-lg md:text-xl font-medium" style="color: #f8f9fa; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">crédits accordés</div>
                     </div>
                 </div>
                 
                 <div class="text-center" data-aos="fade-up" data-aos-delay="500">
-                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105">
-                        <div class="text-5xl font-bold text-white mb-2" style="color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">
+                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-4 sm:p-6 md:p-8 hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105">
+                        <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2" style="color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.4);">
                             <span class="stat-number" data-target="69">0</span>
                             <span class="text-green-400">+</span>
                         </div>
-                        <div class="text-lg font-medium" style="color: #f8f9fa; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">agences</div>
+                        <div class="text-base sm:text-lg md:text-xl font-medium" style="color: #f8f9fa; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">agences</div>
                     </div>
                 </div>
             </div>
@@ -526,7 +526,8 @@ const observer = new IntersectionObserver((entries) => {
             statNumbers.forEach(stat => {
                 // Récupérer la valeur cible depuis l'attribut data-target
                 const target = parseInt(stat.getAttribute('data-target'));
-                if (!isNaN(target) && stat.textContent === '0') {
+                if (!isNaN(target) && !stat.dataset.animated) {
+                    stat.dataset.animated = 'true';
                     animateCounter(stat, target);
                 }
             });
@@ -536,10 +537,15 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observer la section "Pourquoi nous choisir" - Méthode plus robuste
-const pourquoiNousChoisirSection = document.querySelector('.py-20.relative.min-h-screen.overflow-hidden');
-if (pourquoiNousChoisirSection) {
-    observer.observe(pourquoiNousChoisirSection);
+// Observer la section "Pourquoi nous choisir" - Sélection fiable par ID
+const statSection = document.getElementById('pourquoi-nous');
+if (statSection) {
+    observer.observe(statSection);
+} else {
+    // Fallback : observer chaque stat directement
+    document.querySelectorAll('.stat-number').forEach(stat => {
+        observer.observe(stat.parentElement);
+    });
 }
 });
 </script>

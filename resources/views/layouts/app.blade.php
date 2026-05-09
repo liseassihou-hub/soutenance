@@ -54,13 +54,15 @@
             box-sizing: border-box;
         }
         
-        body {
+        html, body {
             font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             color: var(--text-primary);
             line-height: 1.6;
             font-weight: 400;
             background-color: var(--bg-primary);
             overflow-x: hidden;
+            max-width: 100%;
+            width: 100%;
         }
         
         h1, h2, h3, h4, h5, h6 {
@@ -72,6 +74,18 @@
         /* Appliquer les polices uniformément à tout le système */
         * {
             font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        /* Responsive credit button */
+        @media (max-width: 576px) {
+            .credit-btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                white-space: nowrap;
+            }
         }
         
         h1, h2, h3, h4, h5, h6, .navbar-brand {
@@ -431,6 +445,362 @@
                 0 0 15px rgba(0, 0, 0, 0.8),
                 0 0 30px rgba(0, 0, 0, 0.6),
                 0 1px 3px rgba(0, 0, 0, 0.9);
+        }
+        
+        /* Mobile Menu Styles */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-toggle:hover {
+            background-color: rgba(30, 94, 30, 0.1);
+        }
+        
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1040;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .mobile-nav.active {
+            display: block;
+        }
+        
+        .mobile-nav-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+        
+        .mobile-nav-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        
+        .mobile-nav-link {
+            display: block;
+            padding: 1rem;
+            background: rgba(30, 94, 30, 0.05);
+            border-radius: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .mobile-nav-link:hover {
+            background: rgba(30, 94, 30, 0.1);
+            color: var(--primary-green);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-content {
+                padding: 90px 1.5rem 0 1.5rem;
+                max-width: 800px;
+            }
+            
+            .hero-title {
+                font-size: clamp(2.2rem, 6vw, 3.5rem);
+            }
+            
+            .navbar-nav {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 4rem 0;
+            }
+            
+            .hero-section {
+                height: 90vh;
+                min-height: 500px;
+                margin-top: 70px;
+            }
+            
+            .hero-content {
+                padding: 80px 1rem 0 1rem;
+                max-width: 100%;
+            }
+            
+            .hero-title {
+                font-size: clamp(2rem, 7vw, 3rem);
+                line-height: 1.2;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+                line-height: 1.5;
+                margin-bottom: 1.5rem;
+            }
+            
+            .credit-btn {
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+                margin-top: 0.5rem;
+            }
+            
+            .navbar {
+                padding: 0.75rem 0;
+            }
+            
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .navbar-nav .nav-link {
+                margin: 0 0.25rem;
+                padding: 0.375rem 0.5rem !important;
+                font-size: 0.9rem;
+            }
+            
+            .grid-cols-1.lg\:grid-cols-2 {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section-padding {
+                padding: 3rem 0;
+            }
+            
+            .hero-section {
+                height: 80vh;
+                min-height: 400px;
+                margin-top: 50px;
+            }
+            
+            .hero-content {
+                padding: 50px 0.5rem 0 0.5rem;
+            }
+            
+            .hero-title {
+                font-size: clamp(1.5rem, 9vw, 2.25rem);
+            }
+            
+            .hero-subtitle {
+                font-size: 0.85rem;
+                margin-bottom: 1rem;
+            }
+            
+            .credit-btn {
+                padding: 0.625rem 1.5rem;
+                font-size: 0.85rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.125rem;
+            }
+            
+            .navbar-nav .nav-link {
+                font-size: 0.75rem;
+                padding: 0.2rem 0.3rem !important;
+            }
+            
+            .code-text {
+                font-size: 1.4rem;
+                letter-spacing: 0.5px;
+            }
+            
+            .code-modal-container {
+                width: 95%;
+                margin: 10px;
+            }
+            
+            .code-modal-content {
+                padding: 1.5rem;
+            }
+            
+            .code-modal-header h3 {
+                font-size: 1.25rem;
+            }
+            
+            .code-form-group {
+                margin-bottom: 1rem;
+            }
+            
+            .code-input {
+                font-size: 1rem;
+                padding: 0.75rem;
+            }
+            
+            .code-submit-btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-section {
+                height: 70vh;
+                min-height: 300px;
+                margin-top: 30px;
+            }
+            
+            .hero-content {
+                padding: 30px 0.25rem 0 0.25rem;
+            }
+            
+            .hero-title {
+                font-size: clamp(1.2rem, 10vw, 2rem);
+            }
+            
+            .hero-subtitle {
+                font-size: 0.75rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .credit-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1rem;
+            }
+            
+            .navbar-nav .nav-link {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.25rem !important;
+            }
+            
+            .code-text {
+                font-size: 1.2rem;
+                letter-spacing: 0;
+            }
+            
+            .code-modal-container {
+                width: 98%;
+                margin: 5px;
+            }
+            
+            .code-modal-content {
+                padding: 1rem;
+            }
+            
+            .code-modal-header h3 {
+                font-size: 1.1rem;
+            }
+            
+            .code-form-group {
+                margin-bottom: 0.75rem;
+            }
+            
+            .code-input {
+                font-size: 0.9rem;
+                padding: 0.5rem;
+            }
+            
+            .code-submit-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .hero-section {
+                height: 60vh;
+                min-height: 250px;
+                margin-top: 20px;
+            }
+            
+            .hero-content {
+                padding: 20px 0.1rem 0 0.1rem;
+            }
+            
+            .hero-title {
+                font-size: clamp(1rem, 11vw, 1.75rem);
+            }
+            
+            .hero-subtitle {
+                font-size: 0.65rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .credit-btn {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.65rem;
+            }
+            
+            .navbar-brand {
+                font-size: 0.875rem;
+            }
+            
+            .navbar-nav .nav-link {
+                font-size: 0.55rem;
+                padding: 0.1rem 0.2rem !important;
+            }
+            
+            .code-text {
+                font-size: 1rem;
+                letter-spacing: 0;
+            }
+            
+            .code-modal-container {
+                width: 100%;
+                margin: 0;
+            }
+            
+            .code-modal-content {
+                padding: 0.75rem;
+            }
+            
+            .code-modal-header h3 {
+                font-size: 1rem;
+            }
+            
+            .code-form-group {
+                margin-bottom: 0.5rem;
+            }
+            
+            .code-input {
+                font-size: 0.8rem;
+                padding: 0.375rem;
+            }
+            
+            .code-submit-btn {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.7rem;
+            }
         }
         
         /* Responsive Design */

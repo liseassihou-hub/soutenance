@@ -129,12 +129,56 @@
             .sidebar-fixed {
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
+                z-index: 1001;
             }
             .sidebar-fixed.show {
                 transform: translateX(0);
             }
             .main-content {
                 margin-left: 0;
+            }
+            
+            .mobile-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1rem;
+                background: white;
+                border-bottom: 1px solid #e5e7eb;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                background: #16a34a;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .mobile-menu-btn:hover {
+                background: #15803d;
+            }
+            
+            .mobile-menu-btn:active {
+                transform: scale(0.95);
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-header {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: none;
             }
         }
     </style>
@@ -189,11 +233,16 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <!-- Mobile Menu Toggle -->
-        <div class="md:hidden bg-white shadow-sm p-4 flex items-center justify-between">
-            <button class="text-gray-600 hover:text-gray-900" id="sidebarToggle">
+        <!-- Mobile Header -->
+        <div class="mobile-header md:hidden">
+            <button class="mobile-menu-btn" id="sidebarToggle">
                 <i class="fas fa-bars text-xl"></i>
             </button>
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-university text-green-600 text-xl"></i>
+                <span class="font-bold text-green-800">PEBCO Agent</span>
+            </div>
+            <div></div> <!-- Empty div for centering -->
         </div>
 
         <!-- Page Content -->
@@ -223,7 +272,39 @@
     <script>
         // Mobile sidebar toggle
         document.getElementById('sidebarToggle')?.addEventListener('click', function() {
-            document.querySelector('.sidebar-fixed').classList.toggle('show');
+            const sidebar = document.querySelector('.sidebar-fixed');
+            const body = document.body;
+            
+            if (sidebar.classList.contains('show')) {
+                sidebar.classList.remove('show');
+                body.style.overflow = 'auto';
+            } else {
+                sidebar.classList.add('show');
+                body.style.overflow = 'hidden';
+            }
+        });
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.querySelector('.sidebar-fixed');
+            const toggle = document.getElementById('sidebarToggle');
+            
+            if (window.innerWidth <= 768 && 
+                sidebar.classList.contains('show') && 
+                !sidebar.contains(event.target) && 
+                !toggle.contains(event.target)) {
+                sidebar.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            const sidebar = document.querySelector('.sidebar-fixed');
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
         });
     </script>
 </body>

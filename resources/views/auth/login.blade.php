@@ -8,7 +8,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { background: linear-gradient(135deg, #1d6d1d 0%, #147749 100%); }
-        .login-container { max-width: 400px; }
+        .login-container { 
+            max-width: 400px; 
+            width: 90%;
+            margin: 1rem;
+        }
+        
+        @media (max-width: 640px) {
+            .login-container {
+                width: 95%;
+                margin: 0.75rem;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center">

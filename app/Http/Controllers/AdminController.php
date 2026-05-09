@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Agent;
+use App\Models\Agence;
 
 class AdminController extends Controller
 {
@@ -75,7 +76,17 @@ class AdminController extends Controller
             return redirect()->route('admin.login');
         }
 
-        return view('admin.create-agent');
+        $agences = Agence::orderBy('nom_agence')->get();
+        
+        // Debug: Vérifier si les agences sont chargées
+        \Log::info('Nombre d\'agences chargées: ' . $agences->count());
+        if ($agences->count() > 0) {
+            \Log::info('Première agence: ' . $agences->first()->nom_agence);
+        } else {
+            \Log::error('Aucune agence trouvée dans la base de données!');
+        }
+        
+        return view('admin.create-agent', compact('agences'));
     }
 
     /**
@@ -97,6 +108,7 @@ class AdminController extends Controller
                 'sexe' => 'required|in:M,F',
                 'email' => 'required|email|unique:agents,email',
                 'password' => 'required|string|min:8',
+                'id_agence' => 'required|integer|exists:agences,id_agence',
             ]);
 
             // Créer l'agent
@@ -106,6 +118,7 @@ class AdminController extends Controller
                 'sexe' => $validated['sexe'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
+                'id_agence' => $validated['id_agence'],
             ]);
 
             // Si la requête attend du JSON (AJAX), retourner du JSON
