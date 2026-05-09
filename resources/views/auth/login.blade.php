@@ -54,6 +54,12 @@
                 </button>
             </div>
 
+            <div class="text-center -mt-2 mb-6">
+                <a href="{{ route('password.request') }}" class="text-sm font-medium text-green-700 hover:text-green-900 transition-colors">
+                    Mot de passe oublié ?
+                </a>
+            </div>
+
             @error('email')
                 <div class="text-red-500 text-sm text-center mb-4">
                     {{ $message }}

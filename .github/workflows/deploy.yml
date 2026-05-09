@@ -1,0 +1,104 @@
+name: CI/CD Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Build and deploy to shared hosting
+    runs-on: ubuntu-latest
+    env:
+      REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_PORT: ${{ secrets.SSH_PORT }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      RUN_MIGRATIONS: ${{ secrets.RUN_MIGRATIONS }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: mbstring, intl, pdo_mysql
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
+
+      - name: Build assets
+        run: |
+          if [ -f package.json ]; then
+            # prefer clean install with lockfile, otherwise fall back to npm install
+            if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+              npm ci
+            else
+              npm install
+            fi
+            npm run build || true
+          fi
+
+      - name: Validate deployment secrets
+        run: |
+          SSH_PORT="${SSH_PORT:-22}"
+          missing=0
+
+          for var in SSH_HOST SSH_USER SSH_PRIVATE_KEY REMOTE_PATH; do
+            if [ -z "${!var}" ]; then
+              echo "::error::Missing required secret: ${var}"
+              missing=1
+            fi
+          done
+
+          if [ "$missing" -ne 0 ]; then
+            echo "::error::Set required GitHub Secrets: SSH_HOST, SSH_USER, SSH_PRIVATE_KEY, REMOTE_PATH (optional SSH_PORT, RUN_MIGRATIONS)."
+            exit 1
+          fi
+
+          echo "Using SSH port: ${SSH_PORT}"
+
+      - name: Prepare SSH
+        run: |
+          SSH_PORT="${SSH_PORT:-22}"
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts || true
+
+      - name: Rsync files to remote
+        run: |
+          SSH_PORT="${SSH_PORT:-22}"
+          rsync -az --delete \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='storage' \
+            --exclude='.env' \
+            -e "ssh -o StrictHostKeyChecking=no -p ${SSH_PORT}" ./ "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}"
+
+      - name: Run remote deployment commands
+        run: |
+          SSH_PORT="${SSH_PORT:-22}"
+          ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "${SSH_USER}@${SSH_HOST}" << EOF
+          cd "${REMOTE_PATH}"
+          # installer les dépendances côté serveur
+          if command -v composer >/dev/null 2>&1; then
+            composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
+          fi
+          # clear caches
+          if php artisan --version >/dev/null 2>&1; then
+            php artisan cache:clear || true
+            php artisan config:clear || true
+            php artisan view:clear || true
+          fi
+          # exécuter migrations si activé
+          if [ "${RUN_MIGRATIONS}" = "true" ]; then
+            php artisan migrate --force || true
+          fi
+          EOF
