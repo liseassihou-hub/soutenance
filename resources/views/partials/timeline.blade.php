@@ -7,27 +7,23 @@
         </div>
 
         <div class="timeline">
-            <!-- 1994 - Fondation -->
+            <!-- 1990 - Fondation -->
             <div class="timeline-item" data-aos="fade-right">
                 <div class="timeline-dot">
                     <i class="fas fa-flag"></i>
                 </div>
                 <div class="timeline-content">
-                    <div class="timeline-year">1994</div>
-                    <h4 class="timeline-title">Fondation de PEBCO</h4>
+                    <div class="timeline-year">1990</div>
+                    <h4 class="timeline-title"> Naissance de l'ONG BETHESDA</h4>
                     <p class="timeline-description">
-                        Création de PEBCO avec pour mission d'offrir des services financiers adaptés aux populations défavorisées.
+                    
+                       
+                        Création de l'ONG BETHESDA par 24 églises protestantes et évangéliques du Bénin, en réponse à la crise socio-économique de la fin des années 80. La première activité lancée est le département de la santé, autour de l'hôpital communautaire Bethesda.
+
+            
+
                     </p>
-                    <div class="timeline-stats">
-                        <div class="stat-badge">
-                            <i class="fas fa-users"></i>
-                            <span>50 premiers clients</span>
-                        </div>
-                        <div class="stat-badge">
-                            <i class="fas fa-home"></i>
-                            <span>1 agence</span>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
 
@@ -37,25 +33,14 @@
                     <i class="fas fa-chart-line"></i>
                 </div>
                 <div class="timeline-content">
-                    <div class="timeline-year">2000</div>
-                    <h4 class="timeline-title">Expansion Nationale</h4>
+                    <div class="timeline-year">1995</div>
+                    <h4 class="timeline-title">Lancement des activités de microfinance</h4>
                     <p class="timeline-description">
-                        Ouverture de 10 nouvelles agences et lancement des produits de crédit agricole et scolaire.
-                    </p>
-                    <div class="timeline-stats">
-                        <div class="stat-badge">
-                            <i class="fas fa-users"></i>
-                            <span>2,500 clients</span>
-                        </div>
-                        <div class="stat-badge">
-                            <i class="fas fa-home"></i>
-                            <span>11 agences</span>
-                        </div>
-                        <div class="stat-badge">
-                            <i class="fas fa-coins"></i>
-                            <span>100M FCFA portefeuille</span>
-                        </div>
-                    </div>
+                        
+                        
+                        Le DCAM (Département de l'Assainissement Communautaire et Environnemental) de l'hôpital Bethesda commence les activités préparatoires pour soutenir les activités génératrices de revenus des populations.
+                                            </p>
+                    
                 </div>
             </div>
 
@@ -65,25 +50,13 @@
                     <i class="fas fa-lightbulb"></i>
                 </div>
                 <div class="timeline-content">
-                    <div class="timeline-year">2010</div>
-                    <h4 class="timeline-title">Innovation Technologique</h4>
+                    <div class="timeline-year"> 1996</div>
+                    <h4 class="timeline-title">Création officielle de PEBCO</h4>
                     <p class="timeline-description">
-                        Introduction de la banque mobile et digitalisation des processus pour améliorer l'accès aux services.
-                    </p>
-                    <div class="timeline-stats">
-                        <div class="stat-badge">
-                            <i class="fas fa-users"></i>
-                            <span>8,000 clients</span>
-                        </div>
-                        <div class="stat-badge">
-                            <i class="fas fa-home"></i>
-                            <span>25 agences</span>
-                        </div>
-                        <div class="stat-badge">
-                            <i class="fas fa-mobile-alt"></i>
-                            <span>Services mobiles</span>
-                        </div>
-                    </div>
+                      
+                        
+                        PEBCO est officiellement créée comme institution de microfinance de type tier 2 par l'ONG BETHESDA, avec pour mission d'améliorer les conditions de vie des populations en offrant des services financiers et non financiers de qualité.
+                    </P>
                 </div>
             </div>
 
@@ -93,25 +66,13 @@
                     <i class="fas fa-award"></i>
                 </div>
                 <div class="timeline-content">
-                    <div class="timeline-year">2015</div>
-                    <h4 class="timeline-title">Certification et Reconnaissance</h4>
+                    <div class="timeline-year">1996 – 2012</div>
+                    <h4 class="timeline-title"> Croissance et expansion nationale</h4>
                     <p class="timeline-description">
-                        Obtention de la certification BCEAO et reconnaissance comme institution financière de référence.
-                    </p>
-                    <div class="timeline-stats">
-                        <div class="stat-badge">
-                            <i class="fas fa-users"></i>
-                            <span>12,000 clients</span>
-                        </div>
-                        <div class="stat-badge">
-                            <i class="fas fa-home"></i>
-                            <span>40 agences</span>
-                        </div>
-                        <div class="stat-badge">
-                            <i class="fas fa-certificate"></i>
-                            <span>Certifié BCEAO</span>
-                        </div>
-                    </div>
+                                            
+                       
+                        Les activités de microfinance sont gérées comme un projet de l'ONG Bethesda pendant 17 ans. PEBCO s'étend progressivement dans les 12 départements du Bénin, ciblant prioritairement les femmes des zones rurales et péri-urbaines avec des prêts collectifs.
+                                        
                 </div>
             </div>
 
@@ -121,25 +82,14 @@
                     <i class="fas fa-heart"></i>
                 </div>
                 <div class="timeline-content">
-                    <div class="timeline-year">2020</div>
-                    <h4 class="timeline-title">Impact Social Renforcé</h4>
+                    <div class="timeline-year">Mai 2013</div>
+                    <h4 class="timeline-title">Indépendance et agrément officiel</h4>
                     <p class="timeline-description">
-                        Lancement de programmes d'inclusion financière et de formation pour les entrepreneurs locaux.
-                    </p>
-                    <div class="timeline-stats">
-                        <div class="stat-badge">
-                            <i class="fas fa-users"></i>
-                            <span>20,000 clients</span>
-                        </div>
-                        <div class="stat-badge">
-                            <i class="fas fa-home"></i>
-                            <span>55 agences</span>
-                        </div>
-                        <div class="stat-badge">
-                            <i class="fas fa-graduation-cap"></i>
-                            <span>5,000 formés</span>
-                        </div>
-                    </div>
+                       
+                            
+                            PEBCO devient une entité indépendante et régulée, séparée de l'ONG Bethesda. Elle prend le nom officiel de "Promotion de l'Épargne-Crédit à Base Communautaire-BETHESDA" (PEBCo-BETHESDA), en conformité avec la réglementation SFD de l'UEMOA. Début du partenariat avec Oikocredit.
+                                                </p>
+                   
                 </div>
             </div>
 
@@ -149,29 +99,47 @@
                     <i class="fas fa-rocket"></i>
                 </div>
                 <div class="timeline-content">
-                    <div class="timeline-year">2024</div>
-                    <h4 class="timeline-title">Leadership et Innovation</h4>
+                    <div class="timeline-year">2016</div>
+                    <h4 class="timeline-title">40 agences et couverture nationale</h4>
                     <p class="timeline-description">
-                        Positionnement comme leader de la microfinance avec des solutions digitales et une couverture nationale.
-                    </p>
-                    <div class="timeline-stats">
-                        <div class="stat-badge">
-                            <i class="fas fa-users"></i>
-                            <span>30,000+ clients</span>
-                        </div>
-                        <div class="stat-badge">
-                            <i class="fas fa-home"></i>
-                            <span>69 agences</span>
-                        </div>
-                        <div class="stat-badge">
-                            <i class="fas fa-globe"></i>
-                            <span>Couverture nationale</span>
-                        </div>
-                        <div class="stat-badge">
-                            <i class="fas fa-coins"></i>
-                            <span>5M+ FCFA portefeuille</span>
-                        </div>
-                    </div>
+                      
+                            
+                            PEBCO-BETHESDA dispose d'un réseau de 40 agences actives dans les 12 départements du Bénin, avec un portefeuille orienté vers les prêts collectifs féminins, les agriculteurs et les micro-entrepreneurs.
+                                                </p>
+                  
+                </div>
+            </div>
+            <!-- 2024 - Présent -->
+            <div class="timeline-item" data-aos="fade-left">
+                <div class="timeline-dot">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2023</div>
+                    <h4 class="timeline-title"> Financement international de 2 millions USD</h4>
+                    <p class="timeline-description">
+                      
+                           
+                           
+                            PEBCO-BETHESDA reçoit un prêt de 2 millions de dollars du Fonds de Liquidité Agricole géré par Incofin, pour renforcer ses activités de soutien aux agriculteurs et aux petites entreprises. Un projet AECF est aussi lancé pour financer 8 288 femmes entrepreneures. 
+                        </p>
+                                            
+                </div>
+            </div>
+            <!-- 2024 - Présent -->
+            <div class="timeline-item" data-aos="fade-left">
+                <div class="timeline-dot">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2024 — Aujourd'hui</div>
+                    <h4 class="timeline-title">Leader de la microfinance au Bénin</h4>
+                    <p class="timeline-description">
+                      
+                          2026 — Aujourd'hui
+
+PEBCO-BETHESDA s'affirme comme l'une des institutions de microfinance de référence au Bénin, avec 60 agences nationales, environ 95 000 emprunteurs actifs dont 64% de femmes et 33% en zone rurale.  </p>
+                  
                 </div>
             </div>
         </div>

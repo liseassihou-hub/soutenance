@@ -10,6 +10,8 @@ class Client extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'nom',
         'prenom',
@@ -20,7 +22,7 @@ class Client extends Model
         'telephone',
         'numero_compte',
         'description_activite',
-        'agence',
+       
     ];
 
     protected $casts = [

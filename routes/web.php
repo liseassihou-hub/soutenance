@@ -129,6 +129,8 @@ Route::get('/epargne', function () {
 })->name('epargne');
 Route::get('/demande/create', [\App\Http\Controllers\DemandeController::class, 'create'])->name('demande.create');
 Route::post('/demande/store', [\App\Http\Controllers\DemandeController::class, 'store'])->name('demande.store');
+Route::get('/demande/confirmation', [\App\Http\Controllers\DemandeController::class, 'confirmation'])
+    ->name('demande.confirmation');
 Route::get('/confirmation', function() {
     return view('confirmation');
 })->name('confirmation');

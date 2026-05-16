@@ -93,10 +93,10 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             @if($demande->photo_personnelle)
                                 <div class="relative group">
-                                    <img src="{{ asset($demande->photo_personnelle) }}" alt="Photo personnelle" 
-                                         class="w-full h-24 sm:h-32 object-cover rounded-lg border border-gray-200">
+                                    <img src="{{ asset('storage/' . $demande->photo_personnelle) }}" alt="Photo personnelle" 
+                                         class="w-full h-24 sm:h-32 object-cover rounded-lg border border-gray-200" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
-                                        <a href="{{ asset($demande->photo_personnelle) }}" target="_blank" 
+                                        <a href="{{ asset('storage/' . $demande->photo_personnelle) }}" target="_blank" 
                                            class="text-white hover:text-gray-200 bg-black bg-opacity-50 rounded-full p-2 transition-colors">
                                             <i class="fas fa-search-plus text-lg sm:text-xl"></i>
                                         </a>
@@ -106,10 +106,10 @@
                             @endif
                             @if($demande->photo_carte_identite)
                                 <div class="relative group">
-                                    <img src="{{ asset($demande->photo_carte_identite) }}" alt="Carte d'identité" 
-                                         class="w-full h-24 sm:h-32 object-cover rounded-lg border border-gray-200">
+                                    <img src="{{ asset('storage/' . $demande->photo_carte_identite) }}" alt="Carte d'identité" 
+                                         class="w-full h-24 sm:h-32 object-cover rounded-lg border border-gray-200" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
-                                        <a href="{{ asset($demande->photo_carte_identite) }}" target="_blank" 
+                                        <a href="{{ asset('storage/' . $demande->photo_carte_identite) }}" target="_blank" 
                                            class="text-white hover:text-gray-200 bg-black bg-opacity-50 rounded-full p-2 transition-colors">
                                             <i class="fas fa-search-plus text-lg sm:text-xl"></i>
                                         </a>

@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @php
+    // Force regeneration of CSRF token
+    header('Cache-Control: no-cache, no-store, must-revalidate');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+@endphp
+
+@php
     $creditTypes = [
         'petit-credit-individuel' => 'Petit crédit individuel',
         'credit-scolaire' => 'Crédit scolaire',
@@ -129,12 +136,14 @@ body {
 }
 
 .fields-2 input,
-.fields-2 select {
+.fields-2 select,
+.fields-2 textarea {
     width: 100%;
     padding: 7px;
     border: 1px solid #ccc;
     outline: none;
     font-family: 'Times New Roman', serif;
+    box-sizing: border-box;
 }
 
 /* GRID 2 COLONNES */
@@ -570,7 +579,7 @@ body {
 @section('content')
 <div class="form-paper">
     <form action="{{ route('demande.store') }}" method="POST" enctype="multipart/form-data" id="creditForm">
-        @csrf
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         
         @if ($errors->any())
             <div style="background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
@@ -793,6 +802,23 @@ body {
         </div>
 
     </form>
+    <script>
+        // Simple CSRF token validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('creditForm');
+            const tokenInput = form.querySelector('input[name="_token"]');
+            
+            // Form submission handler
+            form.addEventListener('submit', function(e) {
+                // Double-check token before submission
+                if (!tokenInput.value || tokenInput.value.length < 10) {
+                    e.preventDefault();
+                    alert('Erreur de sécurité. Veuillez rafraîchir la page.');
+                    return false;
+                }
+            });
+        });
+    </script>
 </div>
 @endsection
 

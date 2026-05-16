@@ -22,10 +22,15 @@ class DemandeController extends Controller
     public function store(Request $request)
     {
         \Log::info('=== DEMANDE CONTROLLER STORE APPELÉ ===');
+        \Log::info('Méthode HTTP: ' . $request->method());
+        \Log::info('URL: ' . $request->fullUrl());
+        \Log::info('Headers: ' . json_encode($request->headers->all()));
         \Log::info('Données brutes reçues: ' . json_encode($request->all()));
+        \Log::info('Files: ' . json_encode(array_keys($request->files->all())));
 
         // 1. VALIDATION
-        $validated = $request->validate([
+        try {
+            $validated = $request->validate([
             'nom'                       => 'required|string|max:100',
             'prenom'                    => 'required|string|max:100',
             'piece_identite_type'       => 'required|string|max:50',
@@ -44,6 +49,10 @@ class DemandeController extends Controller
             'photo_personnelle'         => 'nullable|image|mimes:jpeg,jpg,png|max:1024',
             'photo_piece_identite'      => 'required|image|mimes:jpeg,jpg,png|max:1024',
         ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('ERREUR VALIDATION: ' . json_encode($e->errors()));
+            throw $e;
+        }
 
         \Log::info('VALIDATION RÉUSSIE');
 
@@ -66,6 +75,7 @@ $telephoneDestinataire = '+229' . $telephoneDestinataire;
         try {
             DB::beginTransaction();
 
+
             // 2. UPLOAD PHOTOS
             $photoPersonnellePath   = null;
             $photoPieceIdentitePath = null;
@@ -85,35 +95,44 @@ $telephoneDestinataire = '+229' . $telephoneDestinataire;
             }
 
             // 3. CRÉATION OU MISE À JOUR DU CLIENT
+            \Log::info('Tentative de création/mise à jour du client...');
+            $clientData = [
+                'nom'                       => $validated['nom'],
+                'prenom'                    => $validated['prenom'],
+                'piece_identite_type'       => $validated['piece_identite_type'],
+                'piece_identite_numero'     => $validated['piece_identite_numero'],
+                'piece_identite_expiration' => $validated['piece_identite_expiration'] ?? null,
+                'adresse_personnelle'       => $validated['adresse_personnelle'],
+                'telephone'                 => $validated['telephone'],
+                'numero_compte'             => $validated['numero_compte'],
+                
+                'description_activite'      => $validated['description_activite'] ?? null,
+            ];
+            \Log::info('Données client: ' . json_encode($clientData));
+            
             $client = Client::updateOrCreate(
                 [
                     'piece_identite_numero' => $validated['piece_identite_numero'],
                     'nom'                   => $validated['nom'],
                     'prenom'                => $validated['prenom'],
                 ],
-                [
-                    'nom'                       => $validated['nom'],
-                    'prenom'                    => $validated['prenom'],
-                    'piece_identite_type'       => $validated['piece_identite_type'],
-                    'piece_identite_numero'     => $validated['piece_identite_numero'],
-                    'piece_identite_expiration' => $validated['piece_identite_expiration'] ?? null,
-                    'adresse_personnelle'       => $validated['adresse_personnelle'],
-                    'telephone'                 => $validated['telephone'],
-                    'numero_compte'             => $validated['numero_compte'],
-                    'agence'                    => $validated['agence'],
-                    'description_activite'      => $validated['description_activite'] ?? null,
-                ]
+                $clientData
             );
+            
+            \Log::info('Client créé/mis à jour - ID: ' . $client->id . ' | Nouveau: ' . ($client->wasRecentlyCreated ? 'oui' : 'non'));
 
             // 4. GÉNÉRATION CODE SUIVI
-            $lastId    = DemandeCredit::max('id') ?? 0;
-            $nextId    = $lastId + 1;
-            $codeSuivi = 'PEB-' . date('Y') . str_pad($nextId, 6, '0', STR_PAD_LEFT);
+            do {
+                $randomNumber = random_int(0, 999999);
+                $codeSuivi = 'PEB-' . date('Y') . str_pad($randomNumber, 6, '0', STR_PAD_LEFT);
+            } while (DemandeCredit::where('code_dossier', $codeSuivi)->exists());
 
             // 5. CRÉATION DEMANDE
-            $demande = DemandeCredit::create([
+            \Log::info('Tentative de création de la demande...');
+            $demandeData = [
                 'client_id'            => $client->id,
                 'agent_id'             => null,
+                'id_agence'            => $validated['agence'], 
                 'code_dossier'         => $codeSuivi,
                 'montant_demande'      => $validated['montant_demande'],
                 'duree_mois'           => $validated['duree_mois'],
@@ -124,10 +143,15 @@ $telephoneDestinataire = '+229' . $telephoneDestinataire;
                 'photo_piece_identite' => $photoPieceIdentitePath,
                 'statut'               => 'en_attente',
                 'date_demande'         => Carbon::now(),
-            ]);
+            ];
+            \Log::info('Données demande: ' . json_encode($demandeData));
+            
+            $demande = DemandeCredit::create($demandeData);
 
             \Log::info('DEMANDE CRÉÉE - ID: ' . $demande->id . ' | Code: ' . $codeSuivi);
+            \Log::info('Commit de la transaction...');
             DB::commit();
+            \Log::info('Transaction commitée avec succès');
 
             
             // 7. REDIRECTION FINALE
@@ -135,8 +159,8 @@ $telephoneDestinataire = '+229' . $telephoneDestinataire;
 
             return redirect()
                 ->route('suivi-demande')
-                ->with('info', "Félicitations {$validated['prenom']} ! Votre demande a été enregistrée.")
-                ->with('code_dossier', $codeSuivi);
+                ->with('code_dossier', $codeSuivi)
+                ->with('success', "Félicitations {$validated['prenom']} ! Votre demande a été enregistrée.");
 
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
@@ -154,6 +178,17 @@ $telephoneDestinataire = '+229' . $telephoneDestinataire;
             return redirect()->back()->withInput()
                 ->with('error', 'Erreur lors de la soumission : ' . $e->getMessage());
         }
+    }
+
+    public function confirmation()
+    {
+        $codeDossier = session('code_dossier');
+
+        if (!$codeDossier) {
+            return redirect()->route('home');
+        }
+
+        return view('demande.confirmation', compact('codeDossier'));
     }
 
     public function showSuivi()

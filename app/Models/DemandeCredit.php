@@ -17,6 +17,7 @@ class DemandeCredit extends Model
     protected $fillable = [ 
         'client_id',
         'agent_id',
+        'id_agence',  // ← doit être présent
         'code_dossier',
         'montant_demande',
         'duree_mois',

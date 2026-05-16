@@ -389,7 +389,11 @@
         </div>
         
         <h2 style="color: #1f2937; margin-bottom: 1rem; font-size: 1.5rem;">
-            Félicitations ! Votre demande a été enregistrée
+            @if(session('success'))
+                {{ session('success') }}
+            @else
+                Félicitations ! Votre demande a été enregistrée
+            @endif
         </h2>
         
         <p style="color: #6b7280; margin-bottom: 1.5rem;">

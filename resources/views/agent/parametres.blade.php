@@ -49,6 +49,18 @@
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
 
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Agence</label>
+                    <select name="id_agence" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        @foreach($agences as $agence)
+                            <option value="{{ $agence->id_agence }}" {{ $agent->id_agence == $agence->id_agence ? 'selected' : '' }}>
+                                {{ $agence->nom_agence }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">
                     <i class="fas fa-save mr-2"></i>Mettre à jour les informations
                 </button>

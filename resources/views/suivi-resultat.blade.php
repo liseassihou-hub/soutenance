@@ -62,7 +62,7 @@ $nomCredit = $demande->type_credit ?? 'Non spécifié';
                 </div>
 
                 <div class="text-sm text-green-100">
-                    Demandé le : {{ is_string($demande->created_at) ? date('d/m/Y', strtotime($demande->created_at)) : $demande->created_at->format('d/m/Y') }}
+                    Demandé le : {{ $demande->date_demande ? \Carbon\Carbon::parse($demande->date_demande)->format('d/m/Y') : 'Non spécifiée' }}
                 </div>
             </div>
         </div>

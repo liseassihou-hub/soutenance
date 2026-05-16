@@ -21,11 +21,23 @@ class AgentController extends Controller
     {
         $agent = Auth::guard('agent')->user();
         
-        // Récupérer seulement les dossiers de l'agent + ceux non assignés
+        // Récupérer seulement les dossiers de l'agence de l'agent + les dossiers déjà en charge par lui
         $demandes = DemandeCredit::with('client')
             ->where(function($query) use ($agent) {
-                $query->whereNull('agent_id')        // Dossiers non assignés
-                      ->orWhere('agent_id', $agent->id);  // Dossiers de l'agent
+                $query->where(function($q) use ($agent) {
+                    $q->whereNull('agent_id')
+                      ->where(function($subQuery) use ($agent) {
+                          $subQuery->where('id_agence', $agent->id_agence)
+                                   ->orWhereNull('id_agence');
+                      });
+                })
+                ->orWhere(function($q) use ($agent) {
+                    $q->where('agent_id', $agent->id)
+                      ->where(function($subQuery) use ($agent) {
+                          $subQuery->where('id_agence', $agent->id_agence)
+                                   ->orWhereNull('id_agence');
+                      });
+                });
             })
             ->orderBy('date_demande', 'desc')
             ->get();
@@ -79,6 +91,10 @@ class AgentController extends Controller
         $agent = Auth::guard('agent')->user();
         $demande = DemandeCredit::with('client')->findOrFail($id);
         
+        if ($demande->id_agence !== null && $demande->id_agence != $agent->id_agence) {
+            return back()->with('error', 'Ce dossier n\'appartient pas à votre agence.');
+        }
+        
         // Vérifier si le dossier est déjà pris par un autre agent
         if ($demande->agent_id && $demande->agent_id != $agent->id) {
             return back()->with('error', 'Ce dossier est déjà traité par un autre agent.');
@@ -105,11 +121,21 @@ class AgentController extends Controller
      */
     public function approuverDossier($id)
     {
+        $agent = Auth::guard('agent')->user();
         $demande = DemandeCredit::findOrFail($id);
+
+        if ($demande->id_agence !== null && $demande->id_agence != $agent->id_agence) {
+            return back()->with('error', 'Ce dossier n\'appartient pas à votre agence.');
+        }
+
+        if ($demande->agent_id && $demande->agent_id != $agent->id) {
+            return back()->with('error', 'Ce dossier est déjà traité par un autre agent.');
+        }
+
         $demande->update([
             'statut' => 'approuve',
             'date_traitement' => now(),
-            'agent_id' => Auth::guard('agent')->user()->id
+            'agent_id' => $agent->id
         ]);
         
         return redirect()
@@ -122,6 +148,8 @@ class AgentController extends Controller
      */
     public function refuserDossier(Request $request, $id)
     {
+        $agent = Auth::guard('agent')->user();
+
         $request->validate([
             'raison_refus' => 'required|string|max:1000'
         ], [
@@ -129,11 +157,20 @@ class AgentController extends Controller
         ]);
         
         $demande = DemandeCredit::findOrFail($id);
+
+        if ($demande->id_agence !== null && $demande->id_agence != $agent->id_agence) {
+            return back()->with('error', 'Ce dossier n\'appartient pas à votre agence.');
+        }
+
+        if ($demande->agent_id && $demande->agent_id != $agent->id) {
+            return back()->with('error', 'Ce dossier est déjà traité par un autre agent.');
+        }
+
         $demande->update([
             'statut' => 'refuse',
             'date_traitement' => now(),
             'raison_refus' => $request->raison_refus,
-            'agent_id' => Auth::guard('agent')->user()->id
+            'agent_id' => $agent->id
         ]);
         
         return redirect(url('/agent/dossiers'))
@@ -145,7 +182,17 @@ class AgentController extends Controller
      */
     public function editDossier($id)
     {
+        $agent = Auth::guard('agent')->user();
         $demande = DemandeCredit::with('client')->findOrFail($id);
+
+        if ($demande->id_agence !== null && $demande->id_agence != $agent->id_agence) {
+            return back()->with('error', 'Ce dossier n\'appartient pas à votre agence.');
+        }
+
+        if ($demande->agent_id && $demande->agent_id != $agent->id) {
+            return back()->with('error', 'Ce dossier est déjà traité par un autre agent.');
+        }
+
         return view('agent.dossier-edit', compact('demande'));
     }
 
@@ -162,7 +209,16 @@ class AgentController extends Controller
             'raison_refus.required' => 'La raison du refus est obligatoire lorsque le statut est "Refusé"'
         ]);
 
+        $agent = Auth::guard('agent')->user();
         $demande = DemandeCredit::findOrFail($id);
+
+        if ($demande->id_agence !== null && $demande->id_agence != $agent->id_agence) {
+            return back()->with('error', 'Ce dossier n\'appartient pas à votre agence.');
+        }
+
+        if ($demande->agent_id && $demande->agent_id != $agent->id) {
+            return back()->with('error', 'Ce dossier est déjà traité par un autre agent.');
+        }
         
         $demande->statut = $request->statut;
         $demande->date_traitement = now();
@@ -190,8 +246,20 @@ class AgentController extends Controller
         
         $query = DemandeCredit::with('client')
             ->where(function($query) use ($agent) {
-                $query->whereNull('agent_id')        // Dossiers non assignés
-                      ->orWhere('agent_id', $agent->id);  // Dossiers de l'agent
+                $query->where(function($q) use ($agent) {
+                    $q->whereNull('agent_id')
+                      ->where(function($subQuery) use ($agent) {
+                          $subQuery->where('id_agence', $agent->id_agence)
+                                   ->orWhereNull('id_agence');
+                      });
+                })
+                ->orWhere(function($q) use ($agent) {
+                    $q->where('agent_id', $agent->id)
+                      ->where(function($subQuery) use ($agent) {
+                          $subQuery->where('id_agence', $agent->id_agence)
+                                   ->orWhereNull('id_agence');
+                      });
+                });
             });
         
         // Filtre de recherche
@@ -238,6 +306,7 @@ class AgentController extends Controller
             'prenom' => 'required|string|max:255',
             'email' => 'required|email|unique:agents,email,'.$agent->id,
             'telephone' => 'nullable|string|max:20',
+            'id_agence' => 'required|exists:agences,id_agence',
         ]);
 
         $agent->update($validated);
@@ -253,6 +322,7 @@ class AgentController extends Controller
     public function parametres()
     {
         $agent = Auth::guard('agent')->user();
-        return view('agent.parametres', compact('agent'));
+        $agences = \App\Models\Agence::orderBy('nom_agence')->get();
+        return view('agent.parametres', compact('agent', 'agences'));
     }
 }

@@ -122,6 +122,7 @@ class AdminController extends Controller
                 'email' => 'required|email|unique:agents,email',
                 'password' => 'required|string|min:6',
                 'telephone' => 'nullable|string',
+                'id_agence' => 'required|integer|exists:agences,id_agence',
             ]);
 
             \Log::info('Données reçues:', $request->all());
@@ -132,6 +133,7 @@ class AdminController extends Controller
             $agent->email = $validated['email'];
             $agent->telephone = $validated['telephone'];
             $agent->sexe = $validated['sexe'];
+            $agent->id_agence = $validated['id_agence'];
             $agent->password = Hash::make($validated['password']);
             $agent->save();
 
